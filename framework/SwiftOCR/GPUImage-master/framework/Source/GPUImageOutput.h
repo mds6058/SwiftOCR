@@ -3,19 +3,18 @@
 
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 #import <UIKit/UIKit.h>
-#else
-// For now, just redefine this on the Mac
-typedef NS_ENUM(NSInteger, UIImageOrientation) {
-    UIImageOrientationUp,            // default orientation
-    UIImageOrientationDown,          // 180 deg rotation
-    UIImageOrientationLeft,          // 90 deg CCW
-    UIImageOrientationRight,         // 90 deg CW
-    UIImageOrientationUpMirrored,    // as above but image mirrored along other axis. horizontal flip
-    UIImageOrientationDownMirrored,  // horizontal flip
-    UIImageOrientationLeftMirrored,  // vertical flip
-    UIImageOrientationRightMirrored, // vertical flip
-};
 #endif
+
+typedef NS_ENUM(NSInteger, GPUImageOrientation) {
+    GPUImageOrientationUp,            // default orientation
+    GPUImageOrientationDown,          // 180 deg rotation
+    GPUImageOrientationLeft,          // 90 deg CCW
+    GPUImageOrientationRight,         // 90 deg CW
+    GPUImageOrientationUpMirrored,    // as above but image mirrored along other axis. horizontal flip
+    GPUImageOrientationDownMirrored,  // horizontal flip
+    GPUImageOrientationLeftMirrored,  // vertical flip
+    GPUImageOrientationRightMirrored, // vertical flip
+};
 
 dispatch_queue_attr_t GPUImageDefaultQueueAttribute(void);
 void runOnMainQueueWithoutDeadlocking(void (^block)(void));
@@ -113,12 +112,12 @@ void reportAvailableMemoryForGPUImage(NSString *tag);
 // If you're trying to use these methods, remember that you need to set -useNextFrameForImageCapture before running -processImage or running video and calling any of these methods, or you will get a nil image
 #if TARGET_IPHONE_SIMULATOR || TARGET_OS_IPHONE
 - (UIImage *)imageFromCurrentFramebuffer;
-- (UIImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
+- (UIImage *)imageFromCurrentFramebufferWithOrientation:(GPUImageOrientation)imageOrientation;
 - (UIImage *)imageByFilteringImage:(UIImage *)imageToFilter;
 - (CGImageRef)newCGImageByFilteringImage:(UIImage *)imageToFilter;
 #else
 - (NSImage *)imageFromCurrentFramebuffer;
-- (NSImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
+- (NSImage *)imageFromCurrentFramebufferWithOrientation:(GPUImageOrientation)imageOrientation;
 - (NSImage *)imageByFilteringImage:(NSImage *)imageToFilter;
 - (CGImageRef)newCGImageByFilteringImage:(NSImage *)imageToFilter;
 #endif

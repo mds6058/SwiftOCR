@@ -207,7 +207,7 @@
     return [(GPUImageOutput<GPUImageInput> *)[_filters lastObject] imageFromCurrentFramebuffer];
 }
 
-- (UIImage *)currentFilteredFrameWithOrientation:(UIImageOrientation)imageOrientation {
+- (UIImage *)currentFilteredFrameWithOrientation:(GPUImageOrientation)imageOrientation {
   return [(GPUImageOutput<GPUImageInput> *)[_filters lastObject] imageFromCurrentFramebufferWithOrientation:imageOrientation];
 }
 

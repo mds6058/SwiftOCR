@@ -24,7 +24,7 @@
 - (void) removeAllFilters;
 
 - (UIImage *) currentFilteredFrame;
-- (UIImage *) currentFilteredFrameWithOrientation:(UIImageOrientation)imageOrientation;
+- (UIImage *) currentFilteredFrameWithOrientation:(GPUImageOrientation)imageOrientation;
 - (CGImageRef) newCGImageFromCurrentFilteredFrame;
 
 @end

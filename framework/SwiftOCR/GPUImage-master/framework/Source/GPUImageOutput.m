@@ -330,33 +330,34 @@ void reportAvailableMemoryForGPUImage(NSString *tag)
 - (UIImage *)imageFromCurrentFramebuffer;
 {
 	UIDeviceOrientation deviceOrientation = [[UIDevice currentDevice] orientation];
-    UIImageOrientation imageOrientation = UIImageOrientationLeft;
+    GPUImageOrientation imageOrientation = GPUImageOrientationLeft;
 	switch (deviceOrientation)
     {
 		case UIDeviceOrientationPortrait:
-			imageOrientation = UIImageOrientationUp;
+			imageOrientation = GPUImageOrientationUp;
 			break;
 		case UIDeviceOrientationPortraitUpsideDown:
-			imageOrientation = UIImageOrientationDown;
+			imageOrientation = GPUImageOrientationDown;
 			break;
 		case UIDeviceOrientationLandscapeLeft:
-			imageOrientation = UIImageOrientationLeft;
+			imageOrientation = GPUImageOrientationLeft;
 			break;
 		case UIDeviceOrientationLandscapeRight:
-			imageOrientation = UIImageOrientationRight;
+			imageOrientation = GPUImageOrientationRight;
 			break;
 		default:
-			imageOrientation = UIImageOrientationUp;
+			imageOrientation = GPUImageOrientationUp;
 			break;
 	}
     
     return [self imageFromCurrentFramebufferWithOrientation:imageOrientation];
 }
 
-- (UIImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
+- (UIImage *)imageFromCurrentFramebufferWithOrientation:(GPUImageOrientation)imageOrientation;
 {
+    UIImageOrientation orientation = (UIImageOrientation)imageOrientation;
     CGImageRef cgImageFromBytes = [self newCGImageFromCurrentlyProcessedOutput];
-    UIImage *finalImage = [UIImage imageWithCGImage:cgImageFromBytes scale:1.0 orientation:imageOrientation];
+    UIImage *finalImage = [UIImage imageWithCGImage:cgImageFromBytes scale:1.0 orientation:orientation];
     CGImageRelease(cgImageFromBytes);
     
     return finalImage;
@@ -379,10 +380,10 @@ void reportAvailableMemoryForGPUImage(NSString *tag)
 
 - (NSImage *)imageFromCurrentFramebuffer;
 {
-    return [self imageFromCurrentFramebufferWithOrientation:UIImageOrientationLeft];
+    return [self imageFromCurrentFramebufferWithOrientation:GPUImageOrientationLeft];
 }
 
-- (NSImage *)imageFromCurrentFramebufferWithOrientation:(UIImageOrientation)imageOrientation;
+- (NSImage *)imageFromCurrentFramebufferWithOrientation:(GPUImageOrientation)imageOrientation;
 {
     CGImageRef cgImageFromBytes = [self newCGImageFromCurrentlyProcessedOutput];
     NSImage *finalImage = [[NSImage alloc] initWithCGImage:cgImageFromBytes size:NSZeroSize];
